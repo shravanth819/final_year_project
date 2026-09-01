@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+*.db
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+ml/models/
+DATASETS/
+*.log

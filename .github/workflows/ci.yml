@@ -1,0 +1,22 @@
+name: Agri-Mitra CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r backend/requirements.txt pytest
+      - run: pytest backend/tests -q
+      - run: pip install pip-audit
+      - run: pip-audit -r backend/requirements.txt -r frontend/requirements.txt
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose build
